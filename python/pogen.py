@@ -24,16 +24,22 @@ poetry = SimpleGrammar() \
         "Águas profundas de #crazy_adjective#"\
         ])\
     .add_tag("define_verb", [\
-        "é", "significa", "quer dizer", "se define como"\
+        "é", "significa", "quer dizer", "se define como",\
+        "traça sua definição como", "se entrelaça no significado de",\
+        "se traduz como" \
         ])\
     .add_tag("intense_verb", [\
         "trespassa o significado de", "se liquefaz como"\
         ])\
     .add_tag("intense_comparation", [\
-        "nunca viver plenamente", "um animal perdido em sua insanidade"\
+        "nunca viver plenamente", "um animal perdido em sua insanidade",\
+        "um deslindar na infinitude do instante", "o algoz da eternidade do sentimento",\
+        "uma muralha infinita no horizonte"\
         ])\
     .add_tag("crazy_adjective", [\
-        "tempestuosa alegria", "infinita tristeza", "efêmera contemplação"\
+        "tempestuosa alegria", "infinita tristeza", "efêmera contemplação",\
+        "inepta ânsia", "movimento perpétuo", "doce inexistência",\
+        "vacuidade existêncial", "beleza infinitesimal", "infinitas impossibilidades"\
         ])
 
 
