@@ -1,4 +1,4 @@
-from utils import get_random
+from utils import get_random, is_int
 
 class SimpleGrammar:
     def __init__(self):
@@ -20,11 +20,12 @@ class SimpleGrammar:
 
     def reset_tags(self):
         self.tags = {}
+        self.static_tags = {}
 
     def add_tag(self, tag, expression):
         self.tags[tag] = expression
         return self
- 
+
     def evaluate(self, text):
         found_tags = self.parse_tags_from(text)
 
@@ -38,7 +39,21 @@ class SimpleGrammar:
         tags_evaluated = []
 
         for t in tag_list:
-            if t in self.tags:
+            if '.' in t:
+                real_tag = ''
+                for i in range(0, len(t)-1):
+                    s = t[i]
+                    if s == '.':
+                        real_tag = t[i+1:]
+                        # print("debug: real_tag: " + real_tag)
+                        break
+                if not t in self.static_tags:
+                    if real_tag in self.tags:
+                        self.static_tags[t] = self.evaluate(get_random(self.tags[real_tag]))
+                if t in self.static_tags:
+                    tags_evaluated.append(self.static_tags[t])
+            elif t in self.tags:
+                # print(t)
                 tagged_text = get_random(self.tags[t])
                 tags_evaluated.append(self.evaluate(tagged_text))
 
@@ -48,6 +63,9 @@ class SimpleGrammar:
         '''
             Tags are between ##
         '''
+
+        # print("debug: replace_tags_from " + str(tag_list))
+
         tag_number = 0
         inside_tag = False
         current_text = ''
