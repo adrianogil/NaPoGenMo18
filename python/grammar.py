@@ -21,6 +21,15 @@ class SimpleGrammar:
     def reset_tags(self):
         self.tags = {}
         self.static_tags = {}
+        self.text_functions = {}
+
+        def capitalize(text):
+            # print("debug: Trying to capitalize - " + str(text))
+            new_text = text[0].upper() + text[1:]
+
+            return new_text
+
+        self.text_functions['capitalize'] = capitalize
 
     def add_tag(self, tag, expression):
         self.tags[tag] = expression
@@ -44,14 +53,20 @@ class SimpleGrammar:
                 for i in range(0, len(t)-1):
                     s = t[i]
                     if s == '.':
+                        prefix_tag = t[:i]
                         real_tag = t[i+1:]
                         # print("debug: real_tag: " + real_tag)
+                        # print("debug: prefix_tag: " + prefix_tag)
                         break
-                if not t in self.static_tags:
-                    if real_tag in self.tags:
-                        self.static_tags[t] = self.evaluate(get_random(self.tags[real_tag]))
-                if t in self.static_tags:
-                    tags_evaluated.append(self.static_tags[t])
+                if is_int(prefix_tag):
+                    if not t in self.static_tags:
+                        if real_tag in self.tags:
+                            self.static_tags[t] = self.evaluate(get_random(self.tags[real_tag]))
+                    if t in self.static_tags:
+                        tags_evaluated.append(self.static_tags[t])
+                elif prefix_tag in self.text_functions:
+                    real_tag = self.evaluate("#" + real_tag + "#")
+                    tags_evaluated.append(self.text_functions[prefix_tag](real_tag))
             elif t in self.tags:
                 # print(t)
                 tagged_text = get_random(self.tags[t])

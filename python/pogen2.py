@@ -3,7 +3,7 @@ from grammar import SimpleGrammar
 poetry = SimpleGrammar() \
     .set_text("#main_structure#")\
     .add_tag("main_structure", [\
-        "#1.feeling# #define_verb# mais do que #1.feeling#"\
+        "#1.feeling# #define_verb# mais do que #1.feeling#\n#capitalize.define_verb# absolutamente nada."\
         ])\
     .add_tag("feeling", [\
         "Amor", "Ódio", "Ciúmes", "Paixão", "Tristeza", "Raiva", "Fúria",\
